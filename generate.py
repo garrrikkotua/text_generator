@@ -54,9 +54,9 @@ def generate(file, seed, length, output):
 
 parse = ap.ArgumentParser(description='Generate some text')
 parse.add_argument('-m', '--model', type=str, help='File to read model from', required=True)
-parse.add_argument('-s', '--seed', type=str, help='Word to start generation', default='', required=False)
+parse.add_argument('-s', '--seed', type=str, help='Word to start generation', default='')
 parse.add_argument('-l', '--length', type=int, help='Length of text to generate', required=True)
-parse.add_argument('-o', '--output', type=str, help='File to output generated text', default='', required=False)
+parse.add_argument('-o', '--output', type=str, help='File to output generated text', default='')
 args = parse.parse_args()
 with open(args.model, 'r') as in_file:
     if args.output == '':
