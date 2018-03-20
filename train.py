@@ -99,7 +99,7 @@ def train(input_dir, model, lowercase):
 
 
 parse = ap.ArgumentParser(description='Train on  some text')
-parse.add_argument('-i', '--input-dir', type=str, help='Input directory', default='', required=False)
+parse.add_argument('-i', '--input-dir', type=str, help='Input directory', default='')
 parse.add_argument('-m', '--model', type=str, help='Path to the file where model will be saved', required=True)
 parse.add_argument('--lc', action='store_true', help='Make text lowercase')
 args = parse.parse_args()
