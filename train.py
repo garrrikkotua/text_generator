@@ -66,7 +66,8 @@ def gen_bigrams(words, model):  # yields bigrams using words
         b1 = b2
 
 
-def count_freq(bigrams, model):  # counting frequencies of bigrams and writing to file
+def count_freq(bigrams, model):
+    # counting frequencies of bigrams and writing to file
     """
     :param bigrams: iterable of tuples, containing two words
     :param model: str path to save model
@@ -101,8 +102,11 @@ def train(input_dir, model, lowercase):
 
 
 parse = ap.ArgumentParser(description='Train on  some text')
-parse.add_argument('-i', '--input-dir', type=str, help='Input directory', default='', required=True)
-parse.add_argument('-m', '--model', type=str, help='Path to the file where model will be saved', required=True)
+parse.add_argument('-i', '--input-dir', help='Input directory',
+                   default='', required=True)
+parse.add_argument('-m', '--model',
+                   help='Path to the file where model will be saved',
+                   required=True)
 parse.add_argument('--lc', action='store_true', help='Make text lowercase')
 args = parse.parse_args()
 train(args.input_dir, args.model, args.lc)
