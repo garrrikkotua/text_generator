@@ -11,10 +11,11 @@ def previous_bigrams(model):  # loads current mode if file is not empty
     :type model: str
     """
     d = defaultdict(lambda: 0)
-    with open(model, 'r') as file:
-        for line in file:
-            w1, w2, count = line.rstrip().split()
-            d[(w1, w2)] = int(count)
+    if os.path.exists(model):
+        with open(model, 'r') as file:
+            for line in file:
+                w1, w2, count = line.rstrip().split()
+                d[(w1, w2)] = int(count)
     return d
 
 
@@ -22,11 +23,12 @@ def gen_files(input_dir):  # yields file from input-dir
     """
     :param input_dir: directory of input files
     """
-    directory = os.listdir(path=input_dir)
-    for path in directory:
-        file = open(os.path.join(input_dir, path), 'r')
-        yield file
-        file.close()
+    for dirpath, _, files in os.walk(input_dir):
+        for filename in files:
+            if filename.endswith('.txt'):
+                file = open(os.path.join(dirpath, filename), 'r')
+                yield file
+                file.close()
 
 
 def gen_lines(files, lowercase):  # yields line from file
