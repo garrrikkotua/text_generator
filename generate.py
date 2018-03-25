@@ -28,14 +28,18 @@ def get_start_word(model, seed):  # getting first word of the text
         return seed
 
 
-def get_next_word(model, current_word):  # cumulative distribution to get next word
+def get_next_word(model, current_word):
     """
-    :param model: dict containing model
-    :param current_word: last outputted word in text
-    """
-    a = list(model[current_word].keys())
-    b = list(model[current_word].values())
-    return random.choices(a, weights=b, k=1)[0]
+        :param model: dict containing model
+        :param current_word: last outputted word in text
+        """
+    total = sum(w for w in model[current_word].values())
+    r = random.uniform(0, total)
+    upto = 0
+    for c, w in model[current_word].items():
+        if upto + w >= r:
+            return c
+        upto += w
 
 
 def generate(file, seed, length, output):
@@ -53,10 +57,10 @@ def generate(file, seed, length, output):
 
 
 parse = ap.ArgumentParser(description='Generate some text')
-parse.add_argument('-m', '--model', type=str, help='File to read model from', required=True)
-parse.add_argument('-s', '--seed', type=str, help='Word to start generation', default='')
-parse.add_argument('-l', '--length', type=int, help='Length of text to generate', required=True)
-parse.add_argument('-o', '--output', type=str, help='File to output generated text', default='')
+parse.add_argument('-m', '--model', help='File to read model from')
+parse.add_argument('-s', '--seed', help='Word to start generation', default='')
+parse.add_argument('-l', '--length', type=int, help='Length of text')
+parse.add_argument('-o', '--output', help='File to output text', default='')
 args = parse.parse_args()
 with open(args.model, 'r') as in_file:
     if args.output == '':
