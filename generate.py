@@ -63,9 +63,9 @@ def generate(file, seed, length, output):
     current_word = get_start_word(model, seed)
     for i in range(length):
         if i == length - 1:
-            output.write('{}\n'.format(current_word))
+            output.write(current_word + '\n')
         else:
-            output.write('{} '.format(current_word))
+            output.write(current_word + ' ')
             current_word = get_next_word(model, current_word)
 
 

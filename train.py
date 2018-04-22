@@ -21,20 +21,20 @@ from collections import defaultdict
 def gen_files(input_dir):  # yields file from input-dir
     """
     :param input_dir: directory of input files
+    all files will be closed after usage, even if
+    exception occurs
     """
     if input_dir == '':
         yield sys.stdin
     else:
         if os.path.isfile(input_dir):  # lone file
-            file = open(input_dir, 'r')
-            yield file
-            file.close()
+            with open(input_dir, 'r') as file:
+                yield file
         else:
             for dirpath, _, files in os.walk(input_dir):
                 for filename in files:
-                    file = open(os.path.join(dirpath, filename), 'r')
-                    yield file
-                    file.close()
+                    with open(os.path.join(dirpath, filename), 'r') as file:
+                        yield file
 
 
 def gen_lines(files, lowercase):  # yields line from file
