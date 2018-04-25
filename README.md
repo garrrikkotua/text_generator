@@ -1,3 +1,4 @@
+# text_generator
 1. This is simple python text generator module.
 
 2. Train.py module is used for creating model based on input text.
