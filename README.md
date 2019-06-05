@@ -3,7 +3,7 @@
 
 2. Train.py module is used for creating model based on input text.
 
-3. Modle is generated using bigrams and cumilative distribution.
+3. Model is generated using bigrams and cumilative distribution.
 
 4. Model is saved into a file using python pickle module.
 
